@@ -6,4 +6,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan("com.zhu.mq")
 public class MainConfig {
+
 }
