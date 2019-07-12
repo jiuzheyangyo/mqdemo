@@ -22,11 +22,17 @@ public class OrderController {
     public void getRabbit(){
         String encoding = rabbitTemplate.getEncoding();
         fireReduceInventory();
+        firePayMoney();
         LOGGER.info(JSON.toJSONString(rabbitTemplate));
     }
 
     public void fireReduceInventory(){
         String s = "扣减库存";
         rabbitTemplate.convertAndSend("inventory","",s);
+    }
+
+    public void firePayMoney(){
+        String s = "支付";
+        rabbitTemplate.convertAndSend("money","",s);
     }
 }

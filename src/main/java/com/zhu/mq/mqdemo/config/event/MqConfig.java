@@ -9,15 +9,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class mqConfig {
-    @ConfigurationProperties
+public class MqConfig {
+
+    @Bean
     public RabbitAdmin rabbitAdmin(){
-        return null;
+        RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory());
+        return rabbitAdmin;
     }
 
     @Bean
     public RabbitTemplate rabbitTemplate(){
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory());
+        rabbitTemplate.getMessageConverter();
         return rabbitTemplate;
     }
 

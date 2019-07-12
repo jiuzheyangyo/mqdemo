@@ -26,5 +26,21 @@ public class OrderEvent {
         return binding;
     }
 
+    @Bean
+    public Queue payMoney(){
+        Queue payMoney = QueueBuilder.durable("payMoney").build();
+        return payMoney;
+    }
+
+    @Bean
+    public Exchange money(){
+        Exchange money = ExchangeBuilder.fanoutExchange("money").build();
+        return money;
+    }
+    @Bean Binding bingPayMoneyToMoney(){
+        Binding and = BindingBuilder.bind(payMoney()).to(money()).with("").and(null);
+        return and;
+    }
+
 
 }

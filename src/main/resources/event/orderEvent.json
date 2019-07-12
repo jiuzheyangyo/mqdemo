@@ -1,0 +1,5 @@
+[
+  {"domain": "order","eventName":"reduceInventory"},
+  {"domain": "order", "eventName":"payMoney"},
+  {"domain": "order", "eventName":"updateUserInfo"}
+]
