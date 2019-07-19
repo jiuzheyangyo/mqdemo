@@ -1,6 +1,8 @@
 package com.zhu.mq.mqdemo.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.zhu.mq.mqdemo.config.event.publish.EventEngine;
+import com.zhu.mq.mqdemo.vo.PaymentVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -15,6 +17,9 @@ public class OrderController {
     @Autowired
     RabbitTemplate rabbitTemplate;
 
+    @Autowired
+    EventEngine eventEngine;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 
 
@@ -23,16 +28,21 @@ public class OrderController {
         String encoding = rabbitTemplate.getEncoding();
         fireReduceInventory();
         firePayMoney();
+        updateUserInfo();
         LOGGER.info(JSON.toJSONString(rabbitTemplate));
     }
 
     public void fireReduceInventory(){
-        String s = "扣减库存";
-        rabbitTemplate.convertAndSend("inventory","",s);
+        eventEngine.fire("reduceInventory","order","扣减库存。。。");
     }
 
     public void firePayMoney(){
-        String s = "支付";
-        rabbitTemplate.convertAndSend("money","",s);
+        eventEngine.fire("payMoney","order", PaymentVo.builder().no("1101011").comment("备注提示").money(13.3).build());
     }
+
+    public void updateUserInfo(){
+        eventEngine.fire("updateUserInfo","order","更新用户信息。。。");
+    }
+
+
 }

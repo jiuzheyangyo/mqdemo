@@ -44,6 +44,7 @@ public class EventEngine implements InitializingBean {
         InputStream inputStream = classPathResource.getInputStream();
         String json = IOUtils.toString(inputStream, "UTF-8");
         List<EventSource> eventSources = JSON.parseArray(json, EventSource.class);
+        initServer(eventSources);
     }
 
     /**
