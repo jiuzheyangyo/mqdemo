@@ -12,5 +12,20 @@ public class Maintest {
 
         EventListenerGenerater eventListenerGenerater = new EventListenerGenerater();
         eventListenerGenerater.generate("com.zhu.mq.mqdemo");
+        String one = getOne(String.class);
+        System.out.println(one);
+
+    }
+
+    public static <T> T getOne(Class<T> clz){
+        T t = null;
+        try {
+            t = clz.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return t;
     }
 }

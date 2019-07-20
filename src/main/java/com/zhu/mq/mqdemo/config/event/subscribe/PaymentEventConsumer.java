@@ -8,8 +8,8 @@ import com.zhu.mq.mqdemo.config.event.EventFromDomain;
 public class PaymentEventConsumer {
 
     @EventConsumer(eventName = "payMoney")
-    public void payMoney(Object obj){
-        System.out.println("obj:"+ JSON.toJSONString(obj));
+    public void payMoney(byte[] obj){
+        System.out.println("obj:"+ JSON.toJSONString(new String(obj)));
     }
 
 }
